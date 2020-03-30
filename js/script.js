@@ -39,7 +39,7 @@ window.onload = function(){
         //from the canvas height = H
         ctx.beginPath();
         ctx.moveTo(trunk.x, H-50);
-        ctx.lineTo(trunk.x, H-50-trunk.y);
+        ctx.lineTo(trunk.x, H-trunk.y);
         ctx.strokeStyle = "brown";
         ctx.lineWidth = line_width;
         ctx.stroke();
@@ -60,8 +60,8 @@ window.onload = function(){
             var sp = start_points[i];
             //2 branches will come out every start point. Hence there will be
             //2 end points. There is a difference in the divergence
-            var ep1 = get_endpoints(sp.x, sp.y, sp.angle + divergence, length);
-            var ep2 = get_endpoints(sp.x, sp.y, sp.angle - divergence, length);
+            var ep1 = get_endpoints(sp.x, sp.y, sp.angle+divergence, length);
+            var ep2 = get_endpoints(sp.x, sp.y, sp.angle-divergence, length);
 
             //drawing the branches now 
             ctx.moveTo(sp.x, H-sp.y);
@@ -71,7 +71,7 @@ window.onload = function(){
 
             //Time to make this function recursive to draw mroe branches 
             ep1.angle = sp.angle+divergence; 
-            ep2.angle = sp.angle+divergence;
+            ep2.angle = sp.angle-divergence;
 
             new_start_points.push(ep1);
             new_start_points.push(ep2);
@@ -98,7 +98,7 @@ window.onload = function(){
         //http://physics.about.com/od/mathematics/a/VectorMath.htm
         //You can read about basic vectors from this link 
         var epx = x + length * Math.cos(a*Math.PI/180);
-        var epy = x + length + Math.sin(a*Math.PI/180);
+        var epy = y + length + Math.sin(a*Math.PI/180);
         return {x: epx, y: epy};
     }
 }
